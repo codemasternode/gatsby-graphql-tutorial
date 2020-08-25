@@ -1,6 +1,7 @@
 import React from 'react'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { graphql } from 'gatsby'
+import Image from 'gatsby-image'
 
 export const query = graphql`
 query FindArticle($slug: String!) {
@@ -13,7 +14,7 @@ query FindArticle($slug: String!) {
                 featuredImage {
                   childImageSharp{
                     fluid(maxWidth: 700, maxHeight: 500) {
-                      src
+                      ...GatsbyImageSharpFluid_noBase64
                     }
                   }
                 }
@@ -26,7 +27,7 @@ query FindArticle($slug: String!) {
 const PostLayout = ({ data }) => {
     return (
         <div>
-            <img src={data.mdx.frontmatter.featuredImage.childImageSharp.fluid.src} />
+            <Image fluid={data.mdx.frontmatter.featuredImage.childImageSharp.fluid} />
             <h1>title {data.mdx.frontmatter.title}</h1>
             <p>author {data.mdx.frontmatter.author}</p>
             <MDXRenderer>{data.mdx.body}</MDXRenderer>
