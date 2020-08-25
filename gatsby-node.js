@@ -10,19 +10,8 @@ exports.createPages = async ({ graphql, actions }) => {
         allMdx {
           nodes {
             frontmatter {
-              title
               slug
-              author
-              customProp
-              featuredImage {
-                childImageSharp{
-                  fluid(maxWidth: 700, maxHeight: 500) {
-                    src
-                  }
-                }
-              }
             }
-            body
           }
         }
       }
@@ -33,7 +22,7 @@ exports.createPages = async ({ graphql, actions }) => {
             path: `articles/${post.frontmatter.slug}`,
             component: blogPostTemplate,
             context: {
-                post
+                slug: post.frontmatter.slug
             },
         })
     })
